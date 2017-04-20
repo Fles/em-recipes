@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecipeCard from './components/RecipeCard';
+import classnames from 'classnames';
 import './App.css';
 
 import data from '../recipes.json';
@@ -24,12 +25,21 @@ class App extends Component {
   }
 
   render() {
-    let { recipes } = this.state;
-    if (recipes === null) return null;
+    if (this.state.recipes === null) return null;
+
+    let RecipeCards = this.state.recipes.map((r, i) =>
+      <RecipeCard data={r} key={i} className="ui card"/>
+    );
 
     return (
-      <div className="App">
-        { recipes.map((r, i) => <RecipeCard data={r} key={i} />) }
+      <div className={classnames('App', 'container' )}>
+        <div className={classnames('ui', 'grid', 'stackable')}>
+          <div className={classnames('column')}>
+            <div className="ui link four doubling cards">
+              { RecipeCards }
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

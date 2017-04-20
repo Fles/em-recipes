@@ -8,12 +8,13 @@ const colors = [
   {min: 90, max: 120, name: "red"},
 ]
 
-const RecipeCard = ({data}) => {
+const RecipeCard = ({data, classname}) => {
   let { cook_time } = data;
 
   let color = colors.find(c => cook_time >= c.min && cook_time <= c.max);
 
   return <Card
+    className={classname}
     image='http://lorempixel.com/600/600/food/'
     header={ data.name }
     meta={ data.type }
