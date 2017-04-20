@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header, RecipeCard } from './components';
 import classnames from 'classnames';
-import './App.css';
+import './scss/App.css';
 
 import data from '../recipes.json';
 
@@ -33,7 +33,7 @@ class App extends Component {
 
     return (
       <div className={classnames('App', 'container' )}>
-        <Header />
+        <Header {...this.state} />
         <div className={classnames('ui', 'grid', 'stackable')}>
           <div className={classnames('column')}>
             <div className="ui link four doubling cards">
