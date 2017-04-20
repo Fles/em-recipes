@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RecipeCard from './components/RecipeCard';
+import { Header, RecipeCard } from './components';
 import classnames from 'classnames';
 import './App.css';
 
@@ -33,6 +33,7 @@ class App extends Component {
 
     return (
       <div className={classnames('App', 'container' )}>
+        <Header />
         <div className={classnames('ui', 'grid', 'stackable')}>
           <div className={classnames('column')}>
             <div className="ui link four doubling cards">
