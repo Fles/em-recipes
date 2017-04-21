@@ -14,13 +14,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class RecipeList extends Component {
-  constructor() {
-    super()
-    this.state = {
-      ingredients: [],
-    }
-  }
-
   render() {
     if (this.props.recipes == null) return null;
     return (
