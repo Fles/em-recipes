@@ -12,7 +12,7 @@ const colors = [
 
 class RecipeCard extends Component {
   render() {
-    let { data, classname } = this.props;
+    let { data, classname, checkRecipe } = this.props;
     let { cook_time } = data;
 
     let color = colors.find(c => cook_time >= c.min && cook_time <= c.max);
@@ -23,7 +23,7 @@ class RecipeCard extends Component {
         image='http://lorempixel.com/600/600/food/'
         header={
           <div>
-            <Rating icon='heart' />
+            <Rating icon='heart' onRate={() => {checkRecipe(data)}}/>
             <h3>{ data.name }</h3>
           </div>
         }

@@ -1,46 +1,21 @@
 import React, { Component } from 'react';
-import { Header, RecipeCard } from './components';
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { RecipeList } from './containers';
 import classnames from 'classnames';
 import './App.css';
+import * as reducers from './reducer';
 
-import data from '../recipes.json';
+const reducer = combineReducers(reducers);
+const store = createStore(reducer);
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      recipes: null,
-      ingredients: [],
-    }
-  }
-
-  componentDidMount() {
-    let ingredients = [];
-    data.forEach(recipe => {
-      recipe.ingredients.forEach(i => {
-        !ingredients.includes(i) && ingredients.push(i);
-      });
-    });
-    this.setState({ recipes: data, ingredients });
-  }
-
   render() {
-    if (this.state.recipes === null) return null;
-
-    let RecipeCards = this.state.recipes.map((r, i) =>
-      <RecipeCard data={r} key={i} className="ui card"/>
-    );
-
     return (
       <div className={classnames('App', 'container' )}>
-        <Header {...this.state} />
-        <div className={classnames('ui', 'grid', 'stackable')}>
-          <div className={classnames('column')}>
-            <div className="ui link four doubling cards">
-              { RecipeCards }
-            </div>
-          </div>
-        </div>
+        <Provider store={store}>
+          <RecipeList />
+        </Provider>
       </div>
     );
   }

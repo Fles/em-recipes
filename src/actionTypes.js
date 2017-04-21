@@ -1,0 +1,1 @@
+export const CHECK_RECIPE = 'CHECK_RECIPE';
