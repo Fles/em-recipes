@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header, RecipeCard } from './components';
 import classnames from 'classnames';
-import './scss/App.css';
+import './App.css';
 
 import data from '../recipes.json';
 

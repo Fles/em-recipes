@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import IngredientFilter from './IngredientFilter';
+import IngredientFilter from '../IngredientFilter';
 
 class Header extends Component {
     render () {

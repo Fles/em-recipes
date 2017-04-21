@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { WithContext as ReactTags } from 'react-tag-input';
-import '../scss/components/IngredientFilter.css';
+import styles from'./styles.css';
 
 class IngredientFilter extends Component {
     constructor(props) {
@@ -39,9 +39,10 @@ class IngredientFilter extends Component {
     }
 
     render() {
+        console.log("styles", styles);
         const { tags, suggestions } = this.state;
         return (
-            <div className="IngredientFilter">
+            <div className={styles.IngredientFilter}>
                 <ReactTags tags={tags}
                            suggestions={suggestions}
                            handleDelete={this.handleDelete.bind(this)}
