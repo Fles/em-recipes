@@ -39,7 +39,6 @@ class IngredientFilter extends Component {
     }
 
     render() {
-        console.log("styles", styles);
         const { tags, suggestions } = this.state;
         return (
             <div className={styles.IngredientFilter}>

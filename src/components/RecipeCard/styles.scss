@@ -1,0 +1,19 @@
+@import "../../shared";
+
+:local(.RecipeCard) {
+  h3 {
+    margin: 0;
+  }
+  span.ingredients {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.9em;
+    line-height: 1.35em;
+    color: $muted-text-color;
+  }
+  .ui.rating {
+    .icon {
+      &:focus {outline:0}
+    }
+  }
+}

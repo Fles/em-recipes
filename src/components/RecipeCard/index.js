@@ -1,5 +1,7 @@
 import React, { Component }  from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Rating } from 'semantic-ui-react';
+import classnames from 'classnames';
+import styles from'./styles.css';
 
 const colors = [
   {min: 0, max: 30, name: "green"},
@@ -15,20 +17,31 @@ class RecipeCard extends Component {
 
     let color = colors.find(c => cook_time >= c.min && cook_time <= c.max);
 
-    return <Card
-      className={classname}
-      image='http://lorempixel.com/600/600/food/'
-      header={ data.name }
-      meta={ data.type }
-      description={ data.ingredients.join(', ') }
-      extra={
-        <span>
-        <Icon name='hourglass start' />
-        <strong>{ cook_time }</strong> min
-      </span>
-      }
-      color={color.name}
-    />
+    return (
+      <Card
+        className={classnames(classname, styles.RecipeCard)}
+        image='http://lorempixel.com/600/600/food/'
+        header={
+          <div>
+            <Rating icon='heart' />
+            <h3>{ data.name }</h3>
+          </div>
+        }
+        meta={ data.type }
+        description={
+          <span className="ingredients">
+            { data.ingredients.join(', ') }
+          </span>
+        }
+        extra={
+          <span>
+            <Icon name='hourglass start' />
+            <strong>{ cook_time }</strong> min
+          </span>
+        }
+        color={color.name}
+      />
+    )
   }
 }
 
