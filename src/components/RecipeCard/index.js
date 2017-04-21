@@ -16,13 +16,12 @@ class RecipeCard extends Component {
     let { cook_time } = data;
 
     let color = colors.find(c => cook_time >= c.min && cook_time <= c.max);
-    let cId = 'C' + data.id;
+    let cId = 'Card_' + data.id;
     return (
         <div id={cId} className={classnames(styles.RecipeCard, "flip-container")}>
           <div className="flipper">
             <div className="front">
               <Card
-                onClick={()=>{checkRecipe(data)}}
                 className={classnames(classname)}
                 image='http://lorempixel.com/600/600/food/'
                 header={
@@ -48,7 +47,7 @@ class RecipeCard extends Component {
                     <Icon
                       name='retweet'
                       onClick={()=>{
-                        document.querySelector("#"+cId).classList.toggle("flip")
+                        document.querySelector("#" + cId).classList.toggle("flip")
                       }}
                     />
                   </span>
