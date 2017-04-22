@@ -23,7 +23,7 @@ class RecipeCard extends Component {
             <div className="front">
               <Card
                 className={classnames(classname)}
-                image='http://lorempixel.com/600/600/food/'
+                //image='http://lorempixel.com/600/600/food/'
                 header={
                   <div>
                     <Rating
@@ -35,15 +35,17 @@ class RecipeCard extends Component {
                 }
                 meta={ data.type }
                 description={
-                  <span className="ingredients">
-                    { data.ingredients.join(', ') }
-                  </span>
+                  <div>
+                    <Icon name='hourglass start' />
+                    <strong>{ cook_time }</strong> min
+                    <span className="ingredients">
+                      { data.ingredients.join(', ') }
+                    </span>
+                  </div>
+
                 }
                 extra={
                   <span>
-                    <Icon name='hourglass start' />
-                    <strong>{ cook_time }</strong> min
-                    <br/>
                     <Icon
                       name='retweet'
                       onClick={()=>{
@@ -65,10 +67,10 @@ class RecipeCard extends Component {
                       <h3>{ data.name }</h3>
                     </div>
                   }
-                  meta={ data.type }
+                  meta={ '' }
                   description={
                     <span className="ingredients">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Coas mollitia necessitatibus nostrum quasi, ratione voluptas. Ab ad aliquid assumenda corporis cupiditate, eaque eligendi error iure labore omnis placeat porro quibusdam quos reiciendis repellat repudiandae tempora voluptas voluptatem? Ad cupiditate deserunt ducimus eaque fuga harum nihil nulla officia perspiciatis, ratione? A accusantium amet assumenda, commodi corporis culpa cumque enim eveniet illo impedit iste iusto magni natus nobis nostrum nulla odit pariatur perferendis porro praesentium provident, similique, sunt suscipit! Accusamus amet, assumenda at blanditiis corporis culpa deserunt distinctio dolor dolore dolorum eius et, ex explicabo illo inventore ipsa laboriosam minima nam natus provident quam quia reprehenderit sed sequi sint sit voluptates! Aliquid aspernatur autem deserunt expedita impedit, odio perspiciatis quo suscipit. Aperiam aspernatur deserunt, dolorum eos est facere hic libero, nam officia officiis quaerat quibusdam!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque aut consequuntur deleniti dolorum enim in ipsam laborum, libero natus omnis perferendis soluta sunt veritatis.
                     </span>
                 }
                   extra={

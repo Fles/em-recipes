@@ -1,0 +1,10 @@
+:local(.Header) {
+  display: block;
+  height: 100px;
+
+  span {
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+}

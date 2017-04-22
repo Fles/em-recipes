@@ -14,10 +14,7 @@ class App extends Component {
     return (
       <div className={classnames('App', 'container' )}>
         <Provider store={store}>
-          <div>
-
             <RecipeList />
-          </div>
         </Provider>
       </div>
     );

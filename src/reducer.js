@@ -25,6 +25,17 @@ export default function reducer(state = initialState, action) {
       let ap = action.payload;
       return state.setIn(['recipesList', ap.id, 'checked'], !ap.checked);
 
+    case types.FILTER_BY_INGREDIENT:
+      let { ingredient } = action;
+      let recipesByIngredient = [];
+      let rl = state.get('recipesList');
+      rl.forEach(r => {
+        let i = r.get('ingredients');
+        if (i.lastIndexOf(ingredient) !== -1)
+          recipesByIngredient.push(r.get('id'))
+      });
+      return state.set('recipes', recipesByIngredient);
+
     default:
       return state;
   }

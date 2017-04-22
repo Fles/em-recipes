@@ -6,3 +6,10 @@ export function checkRecipe(payload) {
     payload
   };
 }
+
+export function filterByIngredient(ingredient) {
+  return {
+    type: types.FILTER_BY_INGREDIENT,
+    ingredient
+  };
+}
