@@ -1,4 +1,4 @@
-import Header from './Header';
 import RecipeCard from './RecipeCard';
+import IngredientFilter from './IngredientFilter';
 
-export { Header, RecipeCard };
+export { RecipeCard, IngredientFilter };
