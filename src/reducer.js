@@ -19,6 +19,8 @@ const initialState = Immutable.fromJS({
 });
 
 export default function reducer(state = initialState, action) {
+  let rl = state.get('recipesList');
+
   switch (action.type) {
 
     case types.CHECK_RECIPE:
@@ -28,13 +30,24 @@ export default function reducer(state = initialState, action) {
     case types.FILTER_BY_INGREDIENT:
       let { ingredient } = action;
       let recipesByIngredient = [];
-      let rl = state.get('recipesList');
+
       rl.forEach(r => {
         let i = r.get('ingredients');
         if (i.lastIndexOf(ingredient) !== -1)
           recipesByIngredient.push(r.get('id'))
       });
-      return state.set('recipes', recipesByIngredient);
+      return state.set('recipes', recipesByIngredient)
+
+    case types.FILTER_BY_INGREDIENTS:
+      let { ingredients } = action;
+      let recipesByIngredients = [];
+      rl.forEach(r => {
+        let i = r.get('ingredients');
+        ingredients.forEach(o => {
+          if(i.includes(o)) recipesByIngredients.push(r.get('id'))
+        })
+      });
+      return state.set('recipes', recipesByIngredients);
 
     default:
       return state;
