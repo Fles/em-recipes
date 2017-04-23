@@ -12,7 +12,7 @@ const store = createStore(reducer);
 class App extends Component {
   render() {
     return (
-      <div className={classnames('App', 'container' )}>
+      <div className={classnames('App', 'container-fluid' )}>
         <Provider store={store}>
             <RecipeList />
         </Provider>

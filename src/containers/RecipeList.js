@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actionCreators';
+import styles from'./styles.css';
 
 function mapStateToProps(state) {
   return {...state.default.toJS()};
@@ -19,8 +20,8 @@ class RecipeList extends Component {
     let { recipesList } = this.props;
 
     return (
-      <div className={classnames('RecipeList')}>
-        <Header { ...this.props }/>
+      <div className={classnames(styles.RecipeList)}>
+          <Header { ...this.props }/>
           <div className={classnames('ui', 'grid', 'stackable')}>
             <div className={classnames('column')}>
               <div className="ui link four doubling cards">

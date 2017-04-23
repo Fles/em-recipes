@@ -23,7 +23,7 @@ class RecipeCard extends Component {
             <div className="front">
               <Card
                 className={classnames(classname)}
-                //image='http://lorempixel.com/600/600/food/'
+                image=''
                 header={
                   <div>
                     <Rating
@@ -70,7 +70,7 @@ class RecipeCard extends Component {
                   meta={ '' }
                   description={
                     <span className="ingredients">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque aut consequuntur deleniti dolorum enim in ipsam laborum, libero natus omnis perferendis soluta sunt veritatis.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque aut consectetur adipisicing elit consequuntur deleniti dolorum enim in ipsam laborum, libero natus omnis perferendis soluta consectetur adipisicing elit sunt veritatis.
                     </span>
                 }
                   extra={

@@ -1,0 +1,8 @@
+:local(.RecipeList) {
+  padding-top: 25px;
+
+  .ui.cards {
+    display: flex;
+    justify-content: space-around;
+  }
+}
