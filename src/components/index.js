@@ -1,5 +1,5 @@
 import RecipeCard from './RecipeCard';
-import Header from './Header';
+import MainMenu from './MainMenu';
 import IngredientFilter from './IngredientFilter';
 
-export { RecipeCard, Header, IngredientFilter };
+export { RecipeCard, MainMenu, IngredientFilter };

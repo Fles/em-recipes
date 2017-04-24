@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from'./styles.css';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Accordion } from 'semantic-ui-react'
 
-class Header extends Component {
+class MainMenu extends Component {
   constructor(props) {
     super(props);
 
@@ -69,11 +69,11 @@ class Header extends Component {
 
     return (
         <div>
-          <Button color='black' className={styles.Menu} onClick={this.toggleVisibility}>
+          <Button color='black' className={styles.ToggleButton} onClick={this.toggleVisibility}>
             <Icon name='content' />
           </Button>
 
-          <div className={styles.Header} style={{display: visible ? 'block' : 'none'}}>
+          <div className={styles.MainMenu} style={{display: visible ? 'block' : 'none'}}>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                   as={Menu}
@@ -108,4 +108,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default MainMenu;

@@ -1,4 +1,4 @@
-:local(.Header) {
+:local(.MainMenu) {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -20,7 +20,7 @@
   }
 }
 
-:local(.Menu) {
+:local(.ToggleButton) {
   position: absolute;
   right: 0px;
   top: 0px;
