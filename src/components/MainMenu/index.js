@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from'./styles.css';
-import { Sidebar, Segment, Button, Menu, Icon, Accordion } from 'semantic-ui-react'
+import { Sidebar, Segment, Button, Menu, Icon, Accordion, Label, Checkbox } from 'semantic-ui-react'
 
 var xDown = null;
 var yDown = null;
@@ -29,82 +29,106 @@ class MainMenu extends Component {
 
     let { ingredients, recipesList, recipes } = this.props;
 
-    let alpha = recipes.map(id => {
+    let merged = [].concat.apply([], recipes.map(id => {
       return recipesList[id].ingredients;
-    });
-
-    let merged = [].concat.apply([], alpha);
+    }));
 
     let uniqueArray = merged.filter(function(item, pos) {
       return merged.indexOf(item) === pos;
     });
 
     let multipleIngredients = ingredients.map((ing, i) => {
+      return  <Checkbox
+        label={ing}
+        className="multipleIngredient"
+        onChange={(ev, val) => {
+          this.handleOnIngredientsChange(ing, true, val)
+        }}
+      />
+
+
       return (
         <span key={i}>
           <input
             id={ing}
+            className="multipleIngredients"
             type="checkbox"
             htmlFor={ing}
             onChange={e => this.handleOnIngredientsChange(ing, true, e)}
           />
           <label htmlFor={ing}>{ing}</label>
         </span>
-      )
-        });
+      );
+    });
+
     let singleIngredient = ingredients.map((ing, i) => {
       return (
-        <span
+        <Label
+          className="singleIngredient"
           key={i}
-          onClick={e => this.handleOnIngredientsChange(ing, false, e)} >
-          {ing}
-        </span>
-      )
+          children={
+            <span
+              onClick={e => this.handleOnIngredientsChange(ing, false, e)} >
+                {ing}
+            </span>
+          }
+        />
+      );
     });
+
+    let accordionPanels = [
+      {
+        title: 'Filter by single ingredient',
+        content: singleIngredient,
+      },
+      {
+        title: 'Filter by multiple ingredients',
+        content: multipleIngredients,
+        onClick: e => {
+          let { selected } = this.state;
+          this.handleOnIngredientsChange(selected, true, e);
+        }
+      }
+    ];
 
     return (
         <div className={styles.MainMenu}>
           <Sidebar.Pushable as={Segment}>
             <Sidebar
-                as={Menu}
-                animation='push'
-                direction='left'
-                width={ 'wide' }
-                visible={visible}
-                inverted vertical>
-              <Menu.Item name='home'>
-                { inputActivated ? uniqueArray.sort().join(', ') : [] }
-              </Menu.Item>
-              <Menu.Item name='camera'>
-                <Accordion
-                    inverted
-                    panels={[
-                      {
-                        title: 'Filter by single ingredient',
-                        content: singleIngredient,
-                      },
-                      {
-                        title: 'Filter by multiple ingredients',
-                        content: multipleIngredients,
-                        onClick: e => {
-                          let { selected } = this.state;
-                          this.handleOnIngredientsChange(selected, true, e);
-                        }
-                      }
-                    ]}/>
-              </Menu.Item>
+              as={Menu}
+              animation='push'
+              direction='left'
+              width={ 'wide' }
+              visible={visible}
+              inverted
+              vertical>
+                <Menu.Item>
+                  {
+                    !inputActivated ? null :
+                      <div className="sortedIngredientsList">
+                        <h4>Sorted ingredient list:</h4>
+                        { uniqueArray.sort().join(', ') }
+                      </div>
+                  }
+                </Menu.Item>
+                <Menu.Item>
+                  <Accordion inverted panels={ accordionPanels } />
+                </Menu.Item>
             </Sidebar>
+
             <Sidebar.Pusher>
               <Button
+                size={'mini'}
+                compact
                 color='black'
                 className='toggleButton'
-                onClick={this.toggleVisibility}>
-                <Icon name={ 'chevron ' + (visible ? 'left' : 'right') } />
+                onClick={this.toggleVisibility}
+                icon={<Icon name={ 'chevron ' + (visible ? 'left' : 'right') } />}
+              >
               </Button>
               { this.props.children }
             </Sidebar.Pusher>
           </Sidebar.Pushable>
-
         </div>
     );
   }
@@ -112,7 +136,7 @@ class MainMenu extends Component {
   handleOnIngredientsChange(ingredient, multiple = false, event) {
     if (multiple) {
       let selected = this.state.selected;
-      if (event.target.checked) {
+      if (event) {
         if (!selected.includes(ingredient)) selected.push(ingredient);
       } else {
         let index = selected.indexOf(ingredient);

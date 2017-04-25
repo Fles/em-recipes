@@ -6,6 +6,20 @@
   width: 100%;
   height: 100%;
 
+  .sortedIngredientsList {
+    line-height: 1.5em;
+  }
+
+  .multipleIngredient label{
+    color: white !important;
+    margin: 2px 8px;
+  }
+
+  .singleIngredient {
+    margin: 2px !important;
+    cursor: pointer;
+  }
+
   .ui.segment {
     margin: 0;
     border: none;
@@ -14,6 +28,10 @@
   .pusher {
     display: flex;
     justify-content: flex-start;
+
+    button {
+      border-radius: 0px !important;
+    }
   }
 
   @media only screen and (max-width: 700px) {
