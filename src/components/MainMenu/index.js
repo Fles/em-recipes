@@ -40,25 +40,12 @@ class MainMenu extends Component {
     let multipleIngredients = ingredients.map((ing, i) => {
       return  <Checkbox
         label={ing}
+        key={i}
         className="multipleIngredient"
         onChange={(ev, val) => {
           this.handleOnIngredientsChange(ing, true, val)
         }}
       />
-
-
-      return (
-        <span key={i}>
-          <input
-            id={ing}
-            className="multipleIngredients"
-            type="checkbox"
-            htmlFor={ing}
-            onChange={e => this.handleOnIngredientsChange(ing, true, e)}
-          />
-          <label htmlFor={ing}>{ing}</label>
-        </span>
-      );
     });
 
     let singleIngredient = ingredients.map((ing, i) => {
