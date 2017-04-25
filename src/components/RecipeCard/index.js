@@ -18,22 +18,30 @@ class RecipeCard extends Component {
     let color = colors.find(c => cook_time >= c.min && cook_time <= c.max);
     let cId = 'Card_' + data.id;
     return (
-        <div id={cId} className={classnames(styles.RecipeCard, "flip-container")}>
+        <div
+          id={cId}
+          className={classnames(styles.RecipeCard, "flip-container")}>
           <div className="flipper">
             <div className="front">
               <Card
                 className={classnames(classname)}
-                image=''
+                onClick={() => {
+                  document.querySelector("#" + cId).classList.toggle("flip")
+                }}
                 header={
                   <div>
                     <Rating
                       icon='heart'
-                      onRate={() => {checkRecipe(data)}}
+                      onRate={e => {
+                        e.stopPropagation();
+                        checkRecipe(data)
+                      }}
                      />
                     <h3>{ data.name }</h3>
                   </div>
                 }
                 meta={ data.type }
+                color={ color.name }
                 description={
                   <div>
                     <Icon name='hourglass start' />
@@ -44,46 +52,30 @@ class RecipeCard extends Component {
                   </div>
 
                 }
-                extra={
-                  <span>
-                    <Icon
-                      name='retweet'
-                      onClick={()=>{
-                        document.querySelector("#" + cId).classList.toggle("flip")
-                      }}
-                    />
-                  </span>
-                }
-                color={color.name}
               />
             </div>
             <div className="back">
               <Card
-                  onClick={()=>{}}
-                  className={classnames(classname, styles.RecipeCard)}
-                  image=''
-                  header={
-                    <div>
-                      <h3>{ data.name }</h3>
-                    </div>
-                  }
-                  meta={ '' }
-                  description={
-                    <span className="ingredients">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque aut consectetur adipisicing elit consequuntur deleniti dolorum enim in ipsam laborum, libero natus omnis perferendis soluta consectetur adipisicing elit sunt veritatis.
-                    </span>
+                className={classnames(classname, styles.RecipeCard)}
+                onClick={() => {
+                  document.querySelector("#" + cId).classList.toggle("flip");
+                }}
+                header={
+                  <div>
+                    <h3>{ data.name }</h3>
+                  </div>
                 }
-                  extra={
-                  <span>
-                    <Icon
-                      name='retweet'
-                      onClick={()=>{
-                        document.querySelector("#"+cId).classList.toggle("flip")
-                      }}
-                    />
+                color={ color.name }
+                description={
+                  <span className="ingredients">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Accusamus atque aut consectetur adipisicing elit
+                    consequuntur deleniti dolorum enim in ipsam laborum,
+                    libero natus omnis perferendis soluta consectetur
+                    adipisicing elit sunt veritatis.
                   </span>
                 }
-                  color={color.name}
+
               />
             </div>
           </div>
