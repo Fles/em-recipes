@@ -18,8 +18,9 @@ class RecipesApp extends Component {
   render() {
     return (
       <div className={classnames(styles.RecipesApp)}>
-          <MainMenu { ...this.props }/>
-          <RecipesList { ...this.props } />
+          <MainMenu { ...this.props }>
+            <RecipesList { ...this.props } />
+          </MainMenu>
       </div>
     );
   }

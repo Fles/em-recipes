@@ -1,5 +1,12 @@
 @import "../../shared";
 
 :local(.RecipesList) {
+  width: 90%;
+  margin: 0 auto;
+  padding: 50px 0;
 
+  .ui.cards {
+    display: flex;
+    justify-content: center;
+  }
 }

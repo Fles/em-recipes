@@ -18,6 +18,12 @@
   }
 }
 
+@media only screen and (min-width: 700px) {
+  .flip-container, .front, .back {
+    margin: 0 25px;
+  }
+}
+
 /* entire container, keeps perspective */
 .flip-container {
   perspective: 1000px;

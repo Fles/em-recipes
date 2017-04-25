@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import styles from'./styles.css';
 import { Sidebar, Segment, Button, Menu, Icon, Accordion } from 'semantic-ui-react'
 
+var xDown = null;
+var yDown = null;
+
 class MainMenu extends Component {
   constructor(props) {
     super(props);
@@ -13,10 +16,18 @@ class MainMenu extends Component {
     };
   }
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+  toggleVisibility = () => this.setState({ visible: !this.state.visible });
+
+  componentDidMount() {
+    window.addEventListener('touchstart', this.handleTouchStart.bind(this, false));
+    window.addEventListener('touchmove', this.handleTouchMove.bind(this, false));
+
+    //ad esc
+  }
 
   render() {
-    const { visible } = this.state;
+    const { visible, inputActivated } = this.state;
+
     let { ingredients, recipesList, recipes } = this.props;
 
     let alpha = recipes.map(id => {
@@ -44,53 +55,57 @@ class MainMenu extends Component {
         });
     let singleIngredient = ingredients.map((ing, i) => {
       return (
-          <span
-              key={i}
-              onClick={e => this.handleOnIngredientsChange(ing, false, e)} >
-            {ing}
-          </span>
+        <span
+          key={i}
+          onClick={e => this.handleOnIngredientsChange(ing, false, e)} >
+          {ing}
+        </span>
       )
     });
 
     return (
-        <div>
-          <Button color='black' className={styles.ToggleButton} onClick={this.toggleVisibility}>
-            <Icon name='content' />
-          </Button>
-
-          <div className={styles.MainMenu} style={{display: visible ? 'block' : 'none'}}>
-            <Sidebar.Pushable as={Segment}>
-              <Sidebar
-                  as={Menu}
-                  animation='overlay'
-                  direction='right'
-                  width='wide'
-                  visible={visible}
-                  inverted vertical>
-                <Menu.Item name='home'>
-                  { this.state.inputActivated ? uniqueArray.sort().join(', ') : [] }
-                </Menu.Item>
-                <Menu.Item name='camera'>
-                  <Accordion
-                      inverted
-                      panels={[
-                        {
-                          title: 'Filter by single ingredient',
-                          content: singleIngredient,
-                        },
-                        {
-                          title: 'Filter by multiple ingredients',
-                          content: multipleIngredients,
-                          onClick: e => {
-                            let { selected } = this.state;
-                            this.handleOnIngredientsChange(selected, true, e);
-                          }
+        <div className={styles.MainMenu}>
+          <Sidebar.Pushable as={Segment}>
+            <Sidebar
+                as={Menu}
+                animation='push'
+                direction='left'
+                width={ 'wide' }
+                visible={visible}
+                inverted vertical>
+              <Menu.Item name='home'>
+                { inputActivated ? uniqueArray.sort().join(', ') : [] }
+              </Menu.Item>
+              <Menu.Item name='camera'>
+                <Accordion
+                    inverted
+                    panels={[
+                      {
+                        title: 'Filter by single ingredient',
+                        content: singleIngredient,
+                      },
+                      {
+                        title: 'Filter by multiple ingredients',
+                        content: multipleIngredients,
+                        onClick: e => {
+                          let { selected } = this.state;
+                          this.handleOnIngredientsChange(selected, true, e);
                         }
-                      ]}/>
-                </Menu.Item>
-              </Sidebar>
-            </Sidebar.Pushable>
-          </div>
+                      }
+                    ]}/>
+              </Menu.Item>
+            </Sidebar>
+            <Sidebar.Pusher>
+              <Button
+                color='black'
+                className='toggleButton'
+                onClick={this.toggleVisibility}>
+                <Icon name={ 'chevron ' + (visible ? 'left' : 'right') } />
+              </Button>
+              { this.props.children }
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+
         </div>
     );
   }
@@ -124,6 +139,42 @@ class MainMenu extends Component {
       this.setState({inputActivated: true});
       this.props.actions.setRecipes(recipesByIngredient);
     }
+  }
+
+  handleTouchStart(val, evt) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+  }
+
+  handleTouchMove(val, evt) {
+    if ( ! xDown || ! yDown ) {
+      return;
+    }
+
+    var xUp = evt.touches[0].clientX;
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+      if ( xDiff > 0 ) {
+        /* left swipe */
+        this.toggleVisibility()
+      } else {
+        /* right swipe */
+        this.toggleVisibility()
+      }
+    } else {
+      if ( yDiff > 0 ) {
+        /* up swipe */
+      } else {
+        /* down swipe */
+      }
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
   }
 }
 
