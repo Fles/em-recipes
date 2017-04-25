@@ -21,8 +21,7 @@ class MainMenu extends Component {
   componentDidMount() {
     window.addEventListener('touchstart', this.handleTouchStart.bind(this, false));
     window.addEventListener('touchmove', this.handleTouchMove.bind(this, false));
-
-    //ad esc
+    window.addEventListener('keyup', this.handleKeys.bind(this, false));
   }
 
   render() {
@@ -175,6 +174,10 @@ class MainMenu extends Component {
     /* reset values */
     xDown = null;
     yDown = null;
+  }
+
+  handleKeys(val, evt) {
+    if(evt.keyCode === 27) this.setState({visible: false});
   }
 }
 
