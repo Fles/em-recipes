@@ -81,7 +81,10 @@ class MainMenu extends Component {
                         {
                           title: 'Filter by multiple ingredients',
                           content: multipleIngredients,
-                          onClick: () => this.props.actions.setRecipes([])
+                          onClick: e => {
+                            let { selected } = this.state;
+                            this.handleOnIngredientsChange(selected, true, e);
+                          }
                         }
                       ]}/>
                 </Menu.Item>
@@ -89,12 +92,10 @@ class MainMenu extends Component {
             </Sidebar.Pushable>
           </div>
         </div>
-
     );
   }
 
   handleOnIngredientsChange(ingredient, multiple = false, event) {
-    let {actions: {filterByIngredient, filterByIngredients}} = this.props;
     if (multiple) {
       let selected = this.state.selected;
       if (event.target.checked) {
@@ -103,7 +104,6 @@ class MainMenu extends Component {
         let index = selected.indexOf(ingredient);
         if (index > -1) selected.splice(index, 1);
       }
-
       let ingredients = this.state.selected;
       let recipesByIngredients = [];
       this.props.recipesList.forEach(r => {
@@ -115,19 +115,14 @@ class MainMenu extends Component {
       this.setState({selected, inputActivated: true});
       this.props.actions.setRecipes(recipesByIngredients);
     } else {
-
       let recipesByIngredient = [];
-
       this.props.recipesList.forEach(r => {
         let i = r['ingredients'];
         if (i.lastIndexOf(ingredient) !== -1)
           recipesByIngredient.push(r['id'])
       });
-
-
       this.setState({inputActivated: true});
       this.props.actions.setRecipes(recipesByIngredient);
-      //filterByIngredient(ingredient);
     }
   }
 }
