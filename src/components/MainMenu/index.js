@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from'./styles.css';
-import { Sidebar, Segment, Button, Menu, Image, Icon, Accordion } from 'semantic-ui-react'
+import { Sidebar, Segment, Button, Menu, Icon, Accordion } from 'semantic-ui-react'
 
 class MainMenu extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class MainMenu extends Component {
 
   render() {
     const { visible } = this.state;
-    let { ingredients, actions, recipesList, recipes } = this.props;
+    let { ingredients, recipesList, recipes } = this.props;
 
     let alpha = recipes.map(id => {
       return recipesList[id].ingredients;
@@ -26,42 +26,27 @@ class MainMenu extends Component {
     let merged = [].concat.apply([], alpha);
 
     let uniqueArray = merged.filter(function(item, pos) {
-      return merged.indexOf(item) == pos;
+      return merged.indexOf(item) === pos;
     });
 
-    let chkboxes = ingredients.map((ing, i) => {
+    let multipleIngredients = ingredients.map((ing, i) => {
       return (
-        <span>
+        <span key={i}>
           <input
-            key={i}
             id={ing}
             type="checkbox"
             htmlFor={ing}
-            onChange={(e)=>{
-              this.setState({inputActivated: true});
-              let selected = this.state.selected;
-              if (e.target.checked) {
-                if (!selected.includes(ing)) selected.push(ing);
-              } else {
-                let index = selected.indexOf(ing);
-                if (index > -1) selected.splice(index, 1);
-              }
-              this.setState({selected});
-            actions.filterByIngredients(this.state.selected)}}
+            onChange={e => this.handleOnIngredientsChange(ing, true, e)}
           />
           <label htmlFor={ing}>{ing}</label>
         </span>
       )
         });
-    let byIngreed = ingredients.map((ing, i) => {
+    let singleIngredient = ingredients.map((ing, i) => {
       return (
           <span
               key={i}
-              onClick={
-                ()=>{
-                  this.setState({inputActivated: true});
-                  actions.filterByIngredient(ing)}
-                  }>
+              onClick={e => this.handleOnIngredientsChange(ing, false, e)} >
             {ing}
           </span>
       )
@@ -91,11 +76,12 @@ class MainMenu extends Component {
                       panels={[
                         {
                           title: 'Filter by single ingredient',
-                          content: byIngreed ,
+                          content: singleIngredient,
                         },
                         {
                           title: 'Filter by multiple ingredients',
-                          content: chkboxes,
+                          content: multipleIngredients,
+                          onClick: () => this.props.actions.setRecipes([])
                         }
                       ]}/>
                 </Menu.Item>
@@ -105,6 +91,25 @@ class MainMenu extends Component {
         </div>
 
     );
+  }
+
+  handleOnIngredientsChange(ingredient, multiple = false, event) {
+    let {actions: {filterByIngredient, filterByIngredients}} = this.props;
+    if (multiple) {
+      this.setState({inputActivated: true});
+      let selected = this.state.selected;
+      if (event.target.checked) {
+        if (!selected.includes(ingredient)) selected.push(ingredient);
+      } else {
+        let index = selected.indexOf(ingredient);
+        if (index > -1) selected.splice(index, 1);
+      }
+      this.setState({selected});
+      filterByIngredients(this.state.selected)
+    } else {
+      this.setState({inputActivated: true});
+      filterByIngredient(ingredient)
+    }
   }
 }
 

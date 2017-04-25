@@ -13,7 +13,7 @@ const colors = [
 class RecipeCard extends Component {
   render() {
     let { data, classname, checkRecipe } = this.props;
-    let { cook_time } = data;
+    let { cook_time, ingredients } = data;
 
     let color = colors.find(c => cook_time >= c.min && cook_time <= c.max);
     let cId = 'Card_' + data.id;
@@ -39,7 +39,7 @@ class RecipeCard extends Component {
                     <Icon name='hourglass start' />
                     <strong>{ cook_time }</strong> min
                     <span className="ingredients">
-                      { data.ingredients.join(', ') }
+                      { ingredients.join(', ') }
                     </span>
                   </div>
 

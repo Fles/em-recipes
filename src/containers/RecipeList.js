@@ -16,8 +16,15 @@ function mapDispatchToProps(dispatch) {
 
 class RecipeList extends Component {
   render() {
-    if (this.props.recipesList == null) return null;
-    let { recipesList } = this.props;
+    let { recipesList, recipes } = this.props;
+
+    let list = recipes.map(i =>
+      <RecipeCard
+        data={recipesList[i]}
+        key={i}
+        className="ui card"
+        {...this.props.actions} />
+    );
 
     return (
       <div className={classnames(styles.RecipeList)}>
@@ -25,15 +32,7 @@ class RecipeList extends Component {
           <div className={classnames('ui', 'grid', 'stackable')}>
             <div className={classnames('column')}>
               <div className="ui link four doubling cards">
-                {
-                  this.props.recipes.map(i =>
-                    <RecipeCard
-                      data={recipesList[i]}
-                      key={i}
-                      className="ui card"
-                      {...this.props.actions} />
-                  )
-                }
+                { list.length !== 0 ? list : <h2>No selected recipes</h2> }
               </div>
             </div>
           </div>

@@ -24,8 +24,10 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
     case types.CHECK_RECIPE:
-      let ap = action.payload;
-      return state.setIn(['recipesList', ap.id, 'checked'], !ap.checked);
+      return state.setIn(['recipesList', action.payload.id, 'checked'], !action.payload.checked);
+
+    case types.SET_RECIPES:
+      return state.setIn(['recipes'], action.payload);
 
     case types.FILTER_BY_INGREDIENT:
       let { ingredient } = action;

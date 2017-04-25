@@ -7,6 +7,13 @@ export function checkRecipe(payload) {
   };
 }
 
+export function setRecipes(payload) {
+  return {
+    type: types.SET_RECIPES,
+    payload
+  };
+}
+
 export function filterByIngredient(ingredient) {
   return {
     type: types.FILTER_BY_INGREDIENT,
