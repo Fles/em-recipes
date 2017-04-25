@@ -1,3 +1,3 @@
-import RecipeList from './RecipeList';
+import RecipesApp from './RecipesApp';
 
-export { RecipeList };
+export { RecipesApp };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { RecipeList } from './containers';
+import { RecipesApp } from './containers';
 import classnames from 'classnames';
 import './App.css';
 import * as reducers from './reducer';
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className={classnames('App', 'container-fluid' )}>
         <Provider store={store}>
-            <RecipeList />
+            <RecipesApp />
         </Provider>
       </div>
     );
