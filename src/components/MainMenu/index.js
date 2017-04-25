@@ -96,7 +96,6 @@ class MainMenu extends Component {
   handleOnIngredientsChange(ingredient, multiple = false, event) {
     let {actions: {filterByIngredient, filterByIngredients}} = this.props;
     if (multiple) {
-      this.setState({inputActivated: true});
       let selected = this.state.selected;
       if (event.target.checked) {
         if (!selected.includes(ingredient)) selected.push(ingredient);
@@ -104,11 +103,31 @@ class MainMenu extends Component {
         let index = selected.indexOf(ingredient);
         if (index > -1) selected.splice(index, 1);
       }
-      this.setState({selected});
-      filterByIngredients(this.state.selected)
+
+      let ingredients = this.state.selected;
+      let recipesByIngredients = [];
+      this.props.recipesList.forEach(r => {
+        let i = r['ingredients'];
+        ingredients.forEach(o => {
+          if(i.includes(o)) recipesByIngredients.push(r['id'])
+        })
+      });
+      this.setState({selected, inputActivated: true});
+      this.props.actions.setRecipes(recipesByIngredients);
     } else {
+
+      let recipesByIngredient = [];
+
+      this.props.recipesList.forEach(r => {
+        let i = r['ingredients'];
+        if (i.lastIndexOf(ingredient) !== -1)
+          recipesByIngredient.push(r['id'])
+      });
+
+
       this.setState({inputActivated: true});
-      filterByIngredient(ingredient)
+      this.props.actions.setRecipes(recipesByIngredient);
+      //filterByIngredient(ingredient);
     }
   }
 }
