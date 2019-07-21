@@ -13,6 +13,3 @@ Click on recipe to toggle sides!
 On desktop devices press "Esc" to hide main menu.
 
 On mobile browser, open main menu by swiping right and close by swiping left. 
-
-
-
